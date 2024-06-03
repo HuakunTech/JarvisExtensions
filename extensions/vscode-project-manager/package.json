@@ -1,0 +1,76 @@
+{
+  "$schema": "https://extensions.jarvis.huakun.tech/schema.json",
+  "name": "jarvis-ext-vscode-project-manager",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "jarvis": {
+    "name": "VSCode Project Manager",
+    "icon": {
+      "type": "iconify",
+      "value": "logos:visual-studio-code"
+    },
+    "identifier": "jarvis-ext-vscode-project-manager",
+    "shortDescription": "Open project with VSCode from VSCode Project Manager",
+    "longDescription": "Projects saved in your VSCode Project Manager Extension will be listed and can be opened within Jarvis.",
+    "demoImages": [],
+    "permissions": [
+      "fs-home",
+      "shell"
+    ],
+    "uiCmds": [
+      {
+        "name": "Search Project Manager",
+        "main": "dist",
+        "platforms": [
+          "macos"
+        ],
+        "devMain": "http://localhost:5173",
+        "description": "Open project with VSCode Project Manager",
+        "window": {
+          "titleBarStyle": "overlay"
+        },
+        "cmds": [
+          {
+            "type": "text",
+            "value": "vscode"
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "@tauri-apps/api": "2.0.0-beta.13",
+    "@tsconfig/svelte": "^5.0.2",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.33",
+    "svelte": "^4.2.12",
+    "svelte-check": "^3.6.7",
+    "tailwindcss": "^3.4.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "@iconify/svelte": "^4.0.2",
+    "bits-ui": "^0.21.9",
+    "clsx": "^2.1.1",
+    "cmdk-sv": "^0.0.17",
+    "jarvis-api": "0.0.2-alpha.17",
+    "mode-watcher": "^0.3.0",
+    "svelte-radix": "^1.1.0",
+    "tailwind-merge": "^2.3.0",
+    "tailwind-variants": "^0.2.1",
+    "zod": "^3.23.8"
+  },
+  "files": [
+    "dist"
+  ]
+}
