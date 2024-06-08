@@ -1,12 +1,13 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import "./app.css";
-  import { fs, log, open } from "jarvis-api/ui";
+  import { fs, log, open, runScript, os } from "jarvis-api/ui";
   import { ModeWatcher } from "mode-watcher";
   import * as Command from "$lib/components/ui/command";
-  import { invoke } from "@tauri-apps/api/core";
   import { z } from "zod";
   import Icon from "@iconify/svelte";
+  import { toast } from "svelte-sonner";
+  import { Toaster } from "$lib/components/ui/sonner";
 
   export const Project = z.object({
     name: z.string(),
@@ -42,17 +43,32 @@
       });
   });
 
-  function onSelect(project: z.infer<typeof Project>) {
-    invoke("plugin:jarvis|run_script", {
-      exe: "open",
-      args: [project.rootPath, "-a", "/Applications/Visual Studio Code.app"],
-    });
+  async function onSelect(project: z.infer<typeof Project>) {
+    const platform = await os.platform();
+    switch (platform) {
+      case "macos":
+        // openWithVSCode(project);
+        break;
+      case "linux":
+        // openWithVSCode(project);
+        break;
+      case "windows":
+        break;
+      default:
+        log.error(`Unsupported platform: ${platform}`);
+    }
+    runScript("open", [project.rootPath, "-a", "/Applications/Visual Studio Code.app"]);
+    // invoke("plugin:jarvis|run_script", {
+    //   exe: "open",
+    //   args: [project.rootPath, "-a", "/Applications/Visual Studio Code.app"],
+    // });
     // open(project.rootPath, "/usr/local/bin/code");
     // open(project.rootPath, "/Applications/Visual Studio Code.app");
   }
 </script>
 
 <ModeWatcher />
+<Toaster />
 <main class="h-screen flex flex-col">
   <div class="h-8" data-tauri-drag-region />
   <Command.Root on:select={() => console.log("select from root")}>
